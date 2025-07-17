@@ -1,0 +1,6 @@
+[gerrit]
+host=review.circlecat.org
+port=29418
+scheme=ssh
+project=edu-agent
+defaultbranch=main
