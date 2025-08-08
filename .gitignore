@@ -1,0 +1,12 @@
+# Bytecode and cache directories
+__pycache__/
+
+# Compiled Python files
+*.pyc
+
+# IDE and editor files
+.idea/
+.vscode/
+
+# Environment variables
+.env
