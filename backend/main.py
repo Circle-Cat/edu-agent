@@ -1,8 +1,5 @@
-import os
 from fastapi import FastAPI
 from backend.controller.routes import APIRoutes
-from backend.multi_tool_agent.agent import MultimodalAgentSystem
-from backend.utils.middleware import SessionMiddleware
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -13,9 +10,6 @@ app = FastAPI(
     description="A FastAPI service that receives text or audio messages and processes them through a Google ADK agent.",
     version="1.0.0",
 )
-
-# Add the custom session middleware
-app.add_middleware(SessionMiddleware)
 
 # Include the API routes
 api_routes_instance = APIRoutes()

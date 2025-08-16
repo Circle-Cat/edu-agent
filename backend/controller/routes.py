@@ -1,19 +1,9 @@
-from fastapi import (
-    APIRouter,
-    UploadFile,
-    File,
-    Form,
-    Depends,
-    HTTPException,
-    status,
-    Depends,
-)
+from fastapi import APIRouter, Depends, HTTPException, status, Body
 from fastapi.responses import JSONResponse
-from typing import Optional, Annotated, List
+from typing import Optional, Annotated
 
 from google.genai import types
 
-from backend.multi_tool_agent.agent import MultimodalAgentSystem
 from backend.utils.dependencies import get_message_service
 from backend.service.message_service import MessageService
 
@@ -34,23 +24,25 @@ class APIRoutes:
     async def send_message(
         self,
         service: Annotated[MessageService, Depends(get_message_service)],
-        text: Annotated[Optional[str], Form(description="User's text message")] = None,
-        audio: Annotated[
-            Optional[UploadFile], File(description="User's uploaded audio file")
+        text_context: Annotated[
+            Optional[str], Body(description="User's text message")
+        ] = None,
+        mime_type: Annotated[
+            Optional[str], Body(description="Base64 encoded data type")
+        ] = None,
+        data: Annotated[
+            Optional[str], Body(description="Base64 encoded audio or video data")
         ] = None,
     ) -> JSONResponse:
         """
-        This API endpoint receives a user's message and passes it to a multimodal agent for processing.
+        Receives a base64-encoded data from request body and passes it
+        to a multimodal agent for processing.
         """
-        if text is None and audio is None:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Please provide at least one of either a text message or an audio file.",
-            )
-
         try:
             agent_response_text = await service.process_message_input(
-                text=text, audio=audio
+                text=text_context,
+                base64_encoded_data=data,
+                mime_type=mime_type,
             )
             return JSONResponse(
                 content={"agent_response": agent_response_text},
