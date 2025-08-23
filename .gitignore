@@ -7,6 +7,7 @@ __pycache__/
 # IDE and editor files
 .idea/
 .vscode/
+.history/
 
 # Environment variables
 .env

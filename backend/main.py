@@ -7,7 +7,7 @@ load_dotenv()
 
 app = FastAPI(
     title="Multimodal Message Processing Service (with Agent)",
-    description="A FastAPI service that receives text or audio messages and processes them through a Google ADK agent.",
+    description="A FastAPI service that receives text, image, or audio messages and processes them through a Google ADK agent.",
     version="1.0.0",
 )
 
