@@ -45,6 +45,13 @@ uvicorn backend.main:app --host 0.0.0.0 --reload
 
 This will run the application in development mode with live reloading. You can then access the interactive API documentation at: `http://{your-workspace-ip}:8000/docs`
 
+### Running the adk web
+
+```bash
+cd backend
+adk web --host 0.0.0.0 --port 8000
+```
+
 ### Code Formatting with Black
 
 This project uses Black to enforce a consistent Python code style.
