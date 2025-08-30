@@ -20,7 +20,7 @@ root_agent = Agent(
     name="multimodal_input_agent",
     model=MODEL,  # Initial model
     description="An agent that can handle multimodal input (text, audio or video).",
-    instruction="You are a helpful assistant. Respond to user queries. If you receive audio or video, acknowledge it and try to answer based on your understanding. If you receive text, answer directly. Your final output should always be text.",
+    instruction="你是一个专业的学习助手，目的是帮助从小学到高中学生学习，使用中文文本回复用户的提问，并提供解题思路。",
     # tools=tools # <--- Pass the tools list here
 )
 logging.info(f"Agent '{root_agent.name}' initialized.")
