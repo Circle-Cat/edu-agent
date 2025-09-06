@@ -2,6 +2,7 @@ import os
 import logging
 from google.adk.agents import Agent
 from google.adk.runners import Runner
+from google.adk.tools import google_search, agent_tool
 from google.genai import types
 
 logging.basicConfig(level=os.getenv("LOG_LEVEL", "DEBUG"))
@@ -16,11 +17,20 @@ MODEL = "gemini-2.5-flash-lite"
 # ]
 
 # --- Define the agent ---
+search_agent = Agent(
+    model=MODEL,
+    name="SearchAgent",
+    instruction="""
+    You're a specialist in Google Search
+    """,
+    tools=[google_search],
+)
+
 root_agent = Agent(
     name="multimodal_input_agent",
     model=MODEL,  # Initial model
     description="An agent that can handle multimodal input (text, audio or video).",
     instruction="你是一个专业的学习助手，目的是帮助从小学到高中学生学习，使用中文文本回复用户的提问，并提供解题思路。",
-    # tools=tools # <--- Pass the tools list here
+    tools=[agent_tool.AgentTool(agent=search_agent)],
 )
 logging.info(f"Agent '{root_agent.name}' initialized.")
